@@ -1,6 +1,6 @@
+import Header from '@/components/Header';
 import { auth } from './auth';
 import LoginView from './LoginView';
-import LogoutView from './LogoutView';
 
 export default async function Home() {
   const session = await auth();
@@ -9,9 +9,8 @@ export default async function Home() {
   return (
     <div>
       {user && (
-        <div className="ml-2 mt-2">
-          hello {user.name}
-          <LogoutView />
+        <div className="p-4">
+          <Header user={user} />
         </div>
       )}
       {!user && <LoginView />}
