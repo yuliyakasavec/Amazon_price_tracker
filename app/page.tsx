@@ -1,9 +1,20 @@
-import { Button } from '@/components/ui/button';
+import { auth } from './auth';
+import LoginView from './LoginView';
+import LogoutView from './LogoutView';
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+  const user = session?.user;
+
   return (
-    <div className="text-red-500">
-      <Button>Click me</Button>
+    <div>
+      {user && (
+        <div className="ml-2 mt-2">
+          hello {user.name}
+          <LogoutView />
+        </div>
+      )}
+      {!user && <LoginView />}
     </div>
   );
 }
