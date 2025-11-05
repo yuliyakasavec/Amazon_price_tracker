@@ -1,7 +1,30 @@
 import DashboardTopCard from './DashboardTopCard';
 import DashboardProductCard from './DashboardProductCard';
+import { auth } from '@/app/auth';
+import { prisma } from '@/lib/db';
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const session = await auth();
+  const user = session?.user;
+
+  if (!user || !user.email) {
+    return null;
+  }
+
+  const products = await prisma.product.findMany({
+    where: {
+      userEmail: user.email,
+    },
+  });
+  const productIds = products.map((product) => product.amazonId);
+  const history = await prisma.productDataHistory.findMany({
+    where: {
+      amazonId: {
+        in: productIds,
+      },
+    },
+  });
+
   return (
     <div className="col-span-9">
       <h1 className="font-bold my-2">Dashboard</h1>
@@ -11,12 +34,15 @@ export default function Dashboard() {
         <DashboardTopCard title="Rank" value="352" />
       </div>
       <div className="grid grid-cols-2 gap-4 mt-4">
-        <DashboardProductCard />
-        <DashboardProductCard />
-        <DashboardProductCard />
-        <DashboardProductCard />
-        <DashboardProductCard />
-        <DashboardProductCard />
+        {products.map((product) => (
+          <DashboardProductCard
+            key={product.id}
+            product={product}
+            history={history.filter(
+              (history) => history.amazonId === product.amazonId
+            )}
+          />
+        ))}
       </div>
     </div>
   );

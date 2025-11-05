@@ -18,15 +18,15 @@ export default function Sidebar() {
         Navigation
       </h2>
       <nav className="flex flex-col gap-2 *:flex *:gap-1 *:items-center">
-        <Link href={'/products'}>
+        <Link href={'/'}>
           <AlignJustifyIcon className="h-5" />
           All products
         </Link>
-        <Link href={'/electronics'}>
+        <Link href={'/add-product'}>
           <PackagePlusIcon className="h-5" />
           Add product
         </Link>
-        <Link href={'/electronics'}>
+        <Link href={'/notifications'}>
           <BellIcon className="h-5" />
           Notifications
         </Link>
