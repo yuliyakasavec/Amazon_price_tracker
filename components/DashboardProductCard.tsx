@@ -20,7 +20,9 @@ export default function DashboardProductCard({
           <Image src={product.img} alt="" width={96} height={96} />
         </div>
         <div className="grow">
-          <h3 className="font-bold">Amazon Echo Dot</h3>
+          <h3 className="font-bold overflow-hidden">
+            {product.title.substring(0, 15)}
+          </h3>
           <div className="flex">
             <div className="">
               <h4 className="my-2">{product.price / 100}zł</h4>
