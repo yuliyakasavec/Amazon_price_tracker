@@ -4,11 +4,7 @@ import Image from 'next/image';
 import { Card } from './ui/card';
 import LineChart from './LineChart';
 import { Product, ProductDataHistory } from '@/generated/prisma/client';
-import ReactTimeAgo from 'react-time-ago';
-import TimeAgo from 'javascript-time-ago';
-
-import en from 'javascript-time-ago/locale/en';
-TimeAgo.addDefaultLocale(en);
+import TrackerTimeAgo from './TimeAgo';
 
 export default function DashboardProductCard({
   product,
@@ -29,7 +25,7 @@ export default function DashboardProductCard({
             <div className="">
               <h4 className="my-2">{product.price / 100}zł</h4>
               <h5 className="text-xs text-gray-600">
-                <ReactTimeAgo date={product.updatedAt} locale="en-US" />
+                <TrackerTimeAgo date={product.updatedAt} />
               </h5>
             </div>
             <div className="grow pt-4">

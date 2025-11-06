@@ -1,7 +1,11 @@
 import LineChart from './LineChart';
 import { Card } from './ui/card';
 
-export default function DashboardTopCard({ title = 'Price', value = '29.99' }) {
+export default function DashboardTopCard({
+  title = 'Price',
+  value = '29.99',
+  data = undefined,
+}) {
   return (
     <Card className="pt-4 pb-0">
       <div className="flex justify-between p-0 relative">
@@ -11,9 +15,7 @@ export default function DashboardTopCard({ title = 'Price', value = '29.99' }) {
           <span className="font-bold">{value}</span>
         </div>
         <div className="grow mx-0 overflow-hidden rounded-b-xl">
-          <div className="-mx-3">
-            <LineChart />
-          </div>
+          <div className="-mx-3">{data && <LineChart data={data} />}</div>
         </div>
       </div>
     </Card>
